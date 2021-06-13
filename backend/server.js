@@ -1,6 +1,5 @@
 const express = require("express")
 const mongoose = require("mongoose")
-const data = require("./posts")
 const bodyParser = require("body-parser")
 
 const app = express()
@@ -91,7 +90,6 @@ app.post('/api/post/add', (req, res) => {
             res.status(400).send({
                 error: `error adding new post ${error}`
             })
-            return
         } else {
             res.status(200).send("Post successfully added")
         }
