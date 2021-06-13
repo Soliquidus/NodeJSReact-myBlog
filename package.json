@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "express": "^4.17.1",
+    "mongoose": "^5.12.13",
     "supervisor": "^0.12.0"
   }
 }
