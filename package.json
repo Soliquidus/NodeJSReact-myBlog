@@ -3,10 +3,6 @@
   "version": "1.0.0",
   "description": "basic API",
   "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node \"backend/server.js\""
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Soliquidus/nodeJS-myBlog.git"
@@ -16,5 +12,13 @@
   "bugs": {
     "url": "https://github.com/Soliquidus/nodeJS-myBlog/issues"
   },
-  "homepage": "https://github.com/Soliquidus/nodeJS-myBlog#readme"
+  "homepage": "https://github.com/Soliquidus/nodeJS-myBlog#readme",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node \"backend/server.js\""
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "supervisor": "^0.12.0"
+  }
 }
