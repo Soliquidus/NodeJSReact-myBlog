@@ -1,12 +1,14 @@
 const express = require("express")
 const mongoose = require("mongoose")
 const data = require("./posts")
+const bodyParser = require("body-parser")
 
 const app = express()
 const PORT = 4000
 const DB = "mongodb://localhost/blog"
 const Schema = mongoose.Schema
 
+app.use(bodyParser.json())
 app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`))
 mongoose.connect(DB, {useNewUrlParser: true, useUnifiedTopology: true})
     .then(() => console.log('Successfully connected to database'))
@@ -33,7 +35,7 @@ const postSchema = new Schema({
 const Post = mongoose.model("Post", postSchema)
 
 //Routing index
-app.get('/', function (req, res) {
+app.get('/', (req, res) => {
     res.send(`<p>Basic REST API</p>
         <ul>
            <li> All posts - <a href="/api/posts">/api/posts</a></li>
@@ -43,14 +45,14 @@ app.get('/', function (req, res) {
 })
 
 //API Home
-app.get('/api', function (req, res) {
+app.get('/api', (req, res) => {
     res.send('Welcome to a basic API REST!')
 })
 
 
 // ** GET METHODS **
 //Display all posts
-app.get('/api/posts', function (req, res) {
+app.get('/api/posts', (req, res) => {
     Post.find({}, (error, posts) => {
         if (error) {
             res.status(400).error(error)
@@ -63,7 +65,7 @@ app.get('/api/posts', function (req, res) {
 })
 
 //Display one post
-app.get('/api/post/:id', function (req, res) {
+app.get('/api/post/:id', (req, res) => {
     const id = req.params.id
     Post.findById(id, (error, post) => {
         if (error || !post) {
@@ -75,6 +77,23 @@ app.get('/api/post/:id', function (req, res) {
             res.status(200).send({
                 response: post
             })
+        }
+    })
+})
+
+// ** POST METHODS **
+// Post new post
+app.post('/api/post/add', (req, res) => {
+    const {body} = req
+    const newPost = new Post(body)
+    newPost.save(error => {
+        if (error) {
+            res.status(400).send({
+                error: `error adding new post ${error}`
+            })
+            return
+        } else {
+            res.status(200).send("Post successfully added")
         }
     })
 })
