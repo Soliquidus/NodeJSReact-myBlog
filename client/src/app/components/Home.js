@@ -1,6 +1,6 @@
-import React, { Fragment, useState } from "react";
-import { useSelector } from "react-redux";
-import { withItems, Menu, Modal, Posts, PostAction } from "../components";
+import React, {Fragment, useState} from "react";
+import {useSelector} from "react-redux";
+import {withItems, Menu, Modal, Posts, PostAction} from "../components";
 
 const posts = [
     {
@@ -31,17 +31,17 @@ const posts = [
 
 
 export const Home = () => {
-  // const state = useSelector(state => state);
-    const [state, setState] = useState({
-        posts: posts,
-        isFetching: false
-    })
-  return (
-    <Fragment>
-      <Modal />
-      <Menu />
-      {withItems(state, Posts)}
-      <PostAction />
-    </Fragment>
-  );
+    const state = useSelector(state => state);
+    // const [state, setState] = useState({
+    //     posts: posts,
+    //     isFetching: false
+    // })
+    return (
+        <Fragment>
+            <Modal/>
+            <Menu/>
+            {withItems(state, Posts)}
+            <PostAction/>
+        </Fragment>
+    );
 };

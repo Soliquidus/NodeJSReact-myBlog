@@ -1,12 +1,14 @@
 const express = require("express")
 const mongoose = require("mongoose")
 const bodyParser = require("body-parser")
+const cors = require("cors")
 
 const app = express()
 const PORT = 4000
 const DB = "mongodb://localhost/blog"
 const Schema = mongoose.Schema
 
+app.use(cors())
 app.use(bodyParser.json())
 app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`))
 mongoose.connect(DB, {useNewUrlParser: true, useUnifiedTopology: true})
