@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import {useSelector, useDispatch} from "react-redux";
 import { Link } from "react-router-dom";
-import {setFilterAction} from "../lib/state/actions";
+import {addNewPost, setFilterAction} from "../lib/state/actions";
 
 const styles = {
   blog: {
@@ -48,7 +48,7 @@ const styles = {
 
 export const Menu = () => {
   const dispatch = useDispatch();
-  const categories = ["All", "music", "technology", "gaming"];
+  const {categories} = useSelector(state => state);
   const [active, setActive] = useState(categories [0]);
   return (
     <div style={styles.menu}>
@@ -76,6 +76,9 @@ export const PostAction = () => (
 );
 const Form = () => {
   const inputs = document.querySelectorAll(".form-control");
+  const dispatch = useDispatch();
+  const {categories} = useSelector(state => state);
+  const cats = categories.filter(category => category !== "All")
   const [item, setItem] = useState({
     title: "",
     author: "",
@@ -94,11 +97,15 @@ const Form = () => {
   };
   //add & reset
   const add = () => {
-    console.log('ADD OK')
+    dispatch(addNewPost(item))
+    window.jQuery('#form').modal("hide")
   };
 
   const reset = () => {
-    console.log('RESET OK')
+    inputs.forEach(input => {
+      input.style.border = "1px solid #ced4da"
+    });
+    setItem({title: "", author: "", content: "", category: "music"})
   };
 
   const submit = e => {
@@ -137,7 +144,7 @@ const Form = () => {
             });
           }}
         >
-          {[].map(category => {
+          {cats.map(category => {
             return <option>{category}</option>;
           })}
         </select>

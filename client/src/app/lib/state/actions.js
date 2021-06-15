@@ -1,4 +1,4 @@
-import {getPostBy, getPosts} from "../service";
+import {getPostBy, getPosts, addPost} from "../service";
 import {useDispatch} from "react-redux";
 
 export const actions = {
@@ -66,6 +66,11 @@ export function fetchSinglePost(id) {
 }
 
 export function addNewPost(item) {
+    return async function (dispatch) {
+        addPost(item).then(() => {
+            dispatch(fetchPosts());
+        })
+    }
 }
 
 export function setFilterAction(category) {

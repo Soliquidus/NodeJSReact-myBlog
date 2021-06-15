@@ -92,9 +92,11 @@ app.post('/api/post/add', (req, res) => {
             res.status(400).send({
                 error: `error adding new post ${error}`
             })
-        } else {
-            res.status(200).send("Post successfully added")
+            return;
         }
+        res.status(200).send({
+                response: `post successfully added`
+            })
     })
 })
 
