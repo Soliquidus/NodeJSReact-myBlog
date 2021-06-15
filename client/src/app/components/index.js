@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import {useSelector} from "react-redux";
+import {useSelector, useDispatch} from "react-redux";
 import { Link } from "react-router-dom";
+import {setFilterAction} from "../lib/state/actions";
 
 const styles = {
   blog: {
@@ -46,6 +47,7 @@ const styles = {
 };
 
 export const Menu = () => {
+  const dispatch = useDispatch();
   const categories = ["All", "music", "technology", "gaming"];
   const [active, setActive] = useState(categories [0]);
   return (
@@ -54,7 +56,10 @@ export const Menu = () => {
         {categories.map(category => {
           return <li
               className={`category ${active === category && "active"}`}
-              onClick={() => setActive(category)}
+              onClick={() => {
+                dispatch(setFilterAction(category))
+                setActive(category)
+              }}
               style={styles.category}>{category}
           </li>;
         })}
@@ -88,10 +93,24 @@ const Form = () => {
     callback();
   };
   //add & reset
+  const add = () => {
+    console.log('ADD OK')
+  };
+
+  const reset = () => {
+    console.log('RESET OK')
+  };
 
   const submit = e => {
     e.preventDefault();
     //validate
+    validate(() => {
+      if (item.title === "" || item.author === "" ||item.content === "") {
+        return false;
+      }
+      add();
+      reset();
+    });
   };
   return (
     <form onSubmit={e => submit(e)}>
