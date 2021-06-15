@@ -46,11 +46,16 @@ const styles = {
 
 export const Menu = () => {
   const categories = ["All", "music", "technology", "gaming"];
+  const [active, setActive] = useState(categories [0]);
   return (
     <div style={styles.menu}>
       <ul style={styles.categories}>
         {categories.map(category => {
-          return <li style={styles.category}>{category}</li>;
+          return <li
+              className={`category ${active === category && "active"}`}
+              onClick={() => setActive(category)}
+              style={styles.category}>{category}
+          </li>;
         })}
       </ul>
     </div>
