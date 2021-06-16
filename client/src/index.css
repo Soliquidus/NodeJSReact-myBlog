@@ -9,6 +9,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
   color: #333;
 }
+.category {
+  color: #333
+}
 .category:hover {
   cursor: pointer;
   color: darkcyan;

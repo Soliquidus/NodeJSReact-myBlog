@@ -28,6 +28,7 @@ const App = () => {
             <div style={styles.container}>
                 <Router>
                     <Route exact path="/" component={Home}/>
+                    <Route exact path="/:category" component={Home}/>
                     <Route exact path="/post/:id" component={Single}/>
                 </Router>
             </div>

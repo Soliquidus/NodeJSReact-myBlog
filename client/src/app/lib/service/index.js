@@ -1,7 +1,6 @@
 import axios from "axios";
 
 export const getPosts = () => {
-    console.log("GET POST DONE")
     return new Promise((onSuccess, onFail) => {
         axios.get('http://localhost:4000/api/posts').then((response, error) => {
             if (!response || error) {
@@ -12,8 +11,20 @@ export const getPosts = () => {
         });
     });
 };
+
+export const getPostsBy = category => {
+    return new Promise((onSuccess, onFail) => {
+        axios.get(`http://localhost:4000/api/posts/${category}`).then((response, error) => {
+            if (!response || error) {
+                onFail(`Response failure ${error}`);
+                return false;
+            }
+            onSuccess(response)
+        });
+    });
+};
+
 export const getPostBy = id => {
-    console.log("GET SINGLEPOST DONE")
     return new Promise((onSuccess, onFail) => {
         axios.get(`http://localhost:4000/api/post/${id}`).then((response, error) => {
             if (!response || error) {
@@ -24,6 +35,7 @@ export const getPostBy = id => {
         });
     });
 };
+
 export const addPost = body => {
     return new Promise((onSuccess, onFail) => {
         const post = {

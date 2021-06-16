@@ -1,8 +1,9 @@
-import {getPostBy, getPosts, addPost} from "../service";
+import {getPostBy, getPosts, addPost, getPostsBy} from "../service";
 import {useDispatch} from "react-redux";
 
 export const actions = {
     FETCH_POSTS: "FETCH_POSTS",
+    FETCH_POSTS_BY_CATEGORY: "FETCH_POSTS_BY_CATEGORY",
     FETCH_SINGLE_POST: "FETCH_SINGLE_POST",
     FETCH_PENDING: "FETCH_POSTS_PENDING",
     FETCH_ERROR: "FETCH_POSTS_ERROR",
@@ -46,6 +47,19 @@ export function fetchPosts() {
         dispatch(fetchPending());
         try {
             const response = await getPosts();
+            return dispatch(fetchPostsSuccess(response));
+        } catch (error) {
+            return dispatch(fetchError(error));
+        }
+    }
+}
+
+export function fetchPostsBy(category) {
+    return async function (dispatch) {
+        dispatch(fetchPending());
+        try {
+            const response = await getPostsBy(category);
+            console.log({response})
             return dispatch(fetchPostsSuccess(response));
         } catch (error) {
             return dispatch(fetchError(error));
